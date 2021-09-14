@@ -9,6 +9,13 @@ function Header (){
 
     <Styled.Container>
 
+            <Styled.Menu>
+                <a href = ".">INICIO</a>
+                    <span className="barra" />
+                <a href = ".">TAREFA</a>
+            </Styled.Menu>
+
+
     </Styled.Container>
 
     )
