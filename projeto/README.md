@@ -1,9 +1,6 @@
-Task = Tarefa
 
 
-qual a diferença de funcionalidade (pra que serve) da index html e a index js 
-não seria lógico por tudo dentro da index js? 
+PQ REMOVO O IMPORT IMAGEM DO INDEX FILTER E PRECISO POR NO HOME?
 
 
-
-PAREI NO MINUTO 18.
+EXPLICAR ESTRUTURA DO CONTAINER 

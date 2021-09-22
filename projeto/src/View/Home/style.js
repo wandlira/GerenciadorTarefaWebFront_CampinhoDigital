@@ -9,4 +9,9 @@ export const ContainerFilter = styled.div`
         display: flex;
         justify-content: space-around;
         margin-top: 20px;
+
+        button{
+                background: none;
+                border: none;
+        }
 `
