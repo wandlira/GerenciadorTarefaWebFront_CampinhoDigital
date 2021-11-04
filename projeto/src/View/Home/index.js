@@ -1,16 +1,11 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import * as Styled from './style';
+import api from '../../Services/api';
+
 
 /* IMAGENS */
 import Imagem from '../../Imgs/filter.png';
-import futebol from '../../Imgs/futebol.jpg';
-import viagem from '../../Imgs/viagem.png';
-import cinema from '../../Imgs/cinema.png';
-import lanche from '../../Imgs/lanche.jpg';
-import prova from '../../Imgs/prova.jpg';
-import academia from '../../Imgs/academia.jpg';
-import compra from '../../Imgs/compra.jpg';
-import trabalho from '../../Imgs/trabalho.png';
+
 
 /* COMPONENTES */
 import Header from '../../Components/Header';
@@ -22,7 +17,25 @@ import TaskCard from '../../Components/TaskCard';
 
 function Home() {
 
+  //VARIAVEL QUE ATUALIZA O VALOR DO FILTRO
   const [filterActive, functionFilter] = useState();
+
+
+  //SETTASKS VAI SER A FUNÇÃO QUE ARMAZENA TAREFAS DO BANCO DE DADOS NA VARIÁVEL TASK
+  const [tasks, setTasks] = useState([]);
+
+
+  //FUNÇÃO RESPONSÁVEL POR FAZER REQUISIÇÕES PARA O BACKEND
+  async function loadTask(){
+    await api.get(`/task/filter/${filterActive}/11:11:11:11:11:13`)
+    .then(response => {
+      setTasks(response.data)
+    })
+  }
+
+  useEffect(() => {
+    loadTask();
+  }, [filterActive])
 
 
   return (
@@ -30,32 +43,29 @@ function Home() {
     <Styled.Container>
       <Header />
       <Styled.ContainerFilter>
-        <button type='button' onClick={() => functionFilter('todos')}>
-          <Filter title='Todos' Img={Imagem} actived={filterActive === 'todos'} />
+        <button type='button' onClick={() => functionFilter('all')}>
+          <Filter title='Todos' Img={Imagem} actived={filterActive === 'all'} />
         </button>
 
-        <button type='button' onClick={() => functionFilter('hoje')}>
-          <Filter title='Hoje' Img={Imagem} actived={filterActive === 'hoje'} />
+        <button type='button' onClick={() => functionFilter('today')}>
+          <Filter title='Hoje' Img={Imagem} actived={filterActive === 'today'} />
         </button>
 
-        <button type='button' onClick={() => functionFilter('semana')}>
-          <Filter title='Semana' Img={Imagem} actived={filterActive === 'semana'} />
+        <button type='button' onClick={() => functionFilter('week')}>
+          <Filter title='Semana' Img={Imagem} actived={filterActive === 'week'} />
         </button>
 
-        <button type='button' onClick={() => functionFilter('mês')}>
-          <Filter title='Mês' Img={Imagem} actived={filterActive === 'mês'} />
+        <button type='button' onClick={() => functionFilter('month')}>
+          <Filter title='Mês' Img={Imagem} actived={filterActive === 'month'} />
         </button>
       </Styled.ContainerFilter>
 
       <Styled.ContainerCard>
-          <TaskCard Img={futebol} title="Futebol"/>
-          <TaskCard Img={viagem} title="Viagem"/>
-          <TaskCard Img={academia} title="academia"/>
-          <TaskCard Img={lanche} title="Lanche"/>
-          <TaskCard Img={prova} title="Prova"/>
-          <TaskCard Img={trabalho} title="Trabalho"/>
-          <TaskCard Img={cinema} title="Cinema"/>
-          <TaskCard Img={compra} title="Compra"/>
+         {
+           tasks.map(t => (
+            <TaskCard  type={t.type} title={t.title} when={t.when} />
+           ))
+         }
       </Styled.ContainerCard>
 
       <Footer /> 
@@ -68,5 +78,6 @@ function Home() {
 
 /* RESPONSÁVEL POR EXPORTAR A FUNÇÃO PARA OUTRAS ÁREA DO CÓDIGO */
 export default Home;
+
 
 
