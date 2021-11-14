@@ -18,7 +18,7 @@ import TaskCard from '../../Components/TaskCard';
 function Home() {
 
   //VARIAVEL QUE ATUALIZA O VALOR DO FILTRO
-  const [filterActive, functionFilter] = useState();
+  const [filterActive, functionFilter] = useState("all");
 
 
   //SETTASKS VAI SER A FUNÇÃO QUE ARMAZENA TAREFAS DO BANCO DE DADOS NA VARIÁVEL TASK
@@ -28,8 +28,8 @@ function Home() {
   //FUNÇÃO RESPONSÁVEL POR FAZER REQUISIÇÕES PARA O BACKEND
   async function loadTask(){
     await api.get(`/task/filter/${filterActive}/11:11:11:11:11:11`)
-    .then(response => {
-      setTasks(response.data)
+    .then((response) => {
+      setTasks(response.data);
     })
   }
 
