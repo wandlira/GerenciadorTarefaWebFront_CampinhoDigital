@@ -8,7 +8,7 @@ export const Container = styled.div`
 `
 
 export const Form = styled.div`
-        width: 100%
+        width: 50%;
 `
 
 
@@ -64,6 +64,52 @@ export const TextArea = styled.div`
                 padding: 15px;
                 border: 1px solid #ffd700;     
                  
+        }
+
+`
+
+
+
+export const Option = styled.div`
+        display: flex;
+        justify-content: space-between;
+
+        button{
+                font-weight: bold;
+                color: #FFD700;
+                border: none;
+                background: none;
+                cursor: pointer;
+                font-size: 15px;
+
+                &:hover{
+                        opacity: 0.7;
+                }
+        }
+
+        div{
+                display: flex;
+                align-items: center;
+                color: #FFD700;
+                font-size; 15px
+        }
+
+
+
+`
+
+export const Save = styled.div`
+        width: 100%;
+        margin-top: 20px;
+
+        button{
+                width: 100%;
+                background: #FFD700;
+                border: none;
+                font-size: 20px;
+                color: white;
+                border-radius: 20px;
+                cursor: pointer;
         }
 
 `

@@ -54,6 +54,18 @@ function Task() {
           <input type="time" ></input>
         </Styled.Input>
 
+        <Styled.Option>
+          <div>
+              <input type="checkbox"></input>
+              <span>CONCLUÍDO</span>
+          </div>
+        </Styled.Option>
+
+        <Styled.Save>
+          <button type="button">SALVAR</button>
+        </Styled.Save>
+
+
       </Styled.Form>
 
 
