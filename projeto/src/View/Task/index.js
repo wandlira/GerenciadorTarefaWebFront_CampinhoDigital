@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import * as Styled from './style';
 import api from '../../Services/api';
+import { format } from 'date-fns';
+
+import { useParams } from 'react-router'
 
 
 /* IMAGENS */
@@ -18,6 +21,7 @@ import iconUtils from '../../utils/icons';
 
 function Task() {
 
+  const {id} = useParams();
 
   const [type, setType] = useState();
   const [done, setDone] = useState(false);
@@ -37,6 +41,22 @@ function Task() {
 
     }).then(() => alert('A TAREFA FOI CADASTRADA COM SUCESSO'))
   }
+
+  async function loadTask(){
+    await api.get(`/task/${id}`)
+    .then( response=> {
+      setType(response.data.type)
+      setTitle(response.data.title)
+      setDescription(response.data.description)
+      setDate(format( new Date(response.data.when), 'yyyy-MM-dd'))
+      setHour(format( new Date(response.data.when), 'HH:mm'))
+    }) 
+  }
+
+  useEffect(() => {
+    loadTask();
+  }, [])
+
 
   return (
 

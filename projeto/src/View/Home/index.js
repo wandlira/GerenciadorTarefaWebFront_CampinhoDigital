@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import * as Styled from './style';
 import api from '../../Services/api';
 
+import { Link } from 'react-router-dom';
+
 
 /* IMAGENS */
 import Imagem from '../../Imgs/filter.png';
@@ -63,7 +65,9 @@ function Home() {
       <Styled.ContainerCard>
          {
            tasks.map(t => (
+            <Link to={`/task/${t._id}`}>
             <TaskCard  type={t.type} title={t.title} when={t.when} />
+            </Link>
            ))
          }
       </Styled.ContainerCard>
