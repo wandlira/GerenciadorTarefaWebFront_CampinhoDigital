@@ -3,7 +3,9 @@ import * as Styled from './style';
 import api from '../../Services/api';
 import { format } from 'date-fns';
 
-import { useParams } from 'react-router'
+import { useParams } from 'react-router';
+
+import { Navigate } from 'react-router';
 
 
 /* IMAGENS */
@@ -23,6 +25,7 @@ function Task() {
 
   const {id} = useParams();
 
+  const [navigate, setNavigate] = useState(false);
   const [type, setType] = useState();
   const [done, setDone] = useState(false);
   const [title, setTitle] = useState();
@@ -31,7 +34,22 @@ function Task() {
   const [hour, setHour] = useState();
   const [macadress, setMacadress] = useState('11:11:11:11:11:11');
 
+
+
   async function save(){
+
+  if(id){
+
+    await api.put(`/task/${id}`, {
+      macadress,
+      done,
+      type,
+      title,
+      description,
+      when: `${date}T${hour}:00.000`
+
+    }).then(() => setNavigate(true))
+  } else {
     await api.post('/task', {
       macadress,
       type,
@@ -39,7 +57,9 @@ function Task() {
       description,
       when: `${date}T${hour}:00.000`
 
-    }).then(() => alert('A TAREFA FOI CADASTRADA COM SUCESSO'))
+    }).then(() => setNavigate(true))
+  }
+    
   }
 
   async function loadTask(){
@@ -61,6 +81,7 @@ function Task() {
   return (
 
     <Styled.Container>
+      {navigate && <Navigate to="/"></Navigate>}
       <Header />
 
       <Styled.Form>
